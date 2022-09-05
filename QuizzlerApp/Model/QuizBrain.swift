@@ -1,19 +1,13 @@
 //
-//  ViewController.swift
+//  QuizBrain.swift
 //  QuizzlerApp
 //
-//  Created by Usha Sai Chintha on 04/09/22.
+//  Created by Usha Sai Chintha on 05/09/22.
 //
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
-    
+struct QuizBrain{
     let quizQuestions = [
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
@@ -31,38 +25,29 @@ class ViewController: UIViewController {
     
     var questionNumber = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateQuestionsOnUI()
+    
+    // answer is external parameter name and userAnswer is internal parameter name. While function call we can use external param name and within the same function/method (as its struct).. we use internal param name
+    func checkAnswer(answer userAnswer: String) -> Bool{
+        if userAnswer == quizQuestions[questionNumber].answer{
+            return true
+        } else{
+            return false
+        }
     }
     
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        let answerChoosen = sender.currentTitle!
-        let actualAnswer = quizQuestions[questionNumber].answer
-        
-        // UIColor is pre-built colors that comes with iOS UI palette
-        if answerChoosen == actualAnswer{
-            sender.backgroundColor = UIColor.green
-        } else{
-            sender.backgroundColor = UIColor.red
-        }
-        
+    func getQuestionText() -> String{
+        return quizQuestions[questionNumber].text
+    }
+    
+    func getProgressValue() -> Float{
+        return Float(questionNumber+1)/Float(quizQuestions.count)
+    }
+    
+    mutating func repeatingQuestions(){
         if questionNumber<quizQuestions.count-1 {
             questionNumber += 1
         }else{
             questionNumber=0
         }
-        
-        // we need below code to run only once, wait for 0.2 sec... then call updateQuestionsOnUI()
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateQuestionsOnUI), userInfo: nil, repeats: false)
-    }
-    
-    @objc func updateQuestionsOnUI(){
-        questionLabel.text = quizQuestions[questionNumber].text
-        trueButton.backgroundColor = UIColor.clear // .clear helps in showing the colr behind like see-through glass
-        // Say background is Red and the background of the view you place on on top of it is clearColor then you will see Red
-        falseButton.backgroundColor = UIColor.clear
-        progressBar.progress = Float(questionNumber+1)/Float(quizQuestions.count)
     }
 }
-
