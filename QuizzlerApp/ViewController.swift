@@ -39,10 +39,12 @@ class ViewController: UIViewController {
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         let answerChoosen = sender.currentTitle!
         let actualAnswer = quizQuestions[questionNumber].answer
+        
+        // UIColor is pre-built colors that comes with iOS UI palette
         if answerChoosen == actualAnswer{
-            print("Right:)")
+            sender.backgroundColor = UIColor.green
         } else{
-            print("Wrong:(")
+            sender.backgroundColor = UIColor.red
         }
         
         if questionNumber<quizQuestions.count-1 {
@@ -51,11 +53,16 @@ class ViewController: UIViewController {
             questionNumber=0
         }
         
-        updateQuestionsOnUI()        
+        // we need below code to run only once, wait for 0.2 sec... then call updateQuestionsOnUI()
+        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateQuestionsOnUI), userInfo: nil, repeats: false)
     }
     
-    func updateQuestionsOnUI(){
+    @objc func updateQuestionsOnUI(){
         questionLabel.text = quizQuestions[questionNumber].text
+        trueButton.backgroundColor = UIColor.clear // .clear helps in showing the colr behind like see-through glass
+        // Say background is Red and the background of the view you place on on top of it is clearColor then you will see Red
+        falseButton.backgroundColor = UIColor.clear
+        progressBar.progress = Float(questionNumber+1)/Float(quizQuestions.count)
     }
 }
 

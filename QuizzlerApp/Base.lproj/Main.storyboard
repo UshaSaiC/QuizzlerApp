@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="nHc-Zi-nSS">
             <objects>
-                <viewController id="nam-hp-sau" customClass="ViewController" customModule="Quizzler_iOS13" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nam-hp-sau" customClass="ViewController" customModule="QuizzlerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OH8-hv-9I3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
