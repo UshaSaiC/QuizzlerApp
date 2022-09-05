@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     
-    // data type of quizQuestions is 2D array of string i.e [[String]]
-    let quizQuestions = [["4+2 = 6", "True"], ["8-3 = 5", "True"], ["6+3 = 8", "False"]]
+    // data type of quizQuestions is array of Question struct i.e [Question]
+    let quizQuestions = [Question(text: "4+2 = 6", answer: "True"), Question(text: "8-3 = 5", answer: "True"), Question(text: "6+3 = 8", answer: "False")]
     
     var questionNumber = 0
     
@@ -26,14 +26,13 @@ class ViewController: UIViewController {
 
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         let answerChoosen = sender.currentTitle!
-        let actualAnswer = quizQuestions[questionNumber][1]
+        let actualAnswer = quizQuestions[questionNumber].answer
         if answerChoosen == actualAnswer{
             print("Right:)")
         } else{
             print("Wrong:(")
         }
         
-        print(questionNumber)
         if questionNumber<quizQuestions.count-1 {
            questionNumber += 1
         }else{
@@ -45,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     func updateQuestionsOnUI(){
-        questionLabel.text = quizQuestions[questionNumber][0]
+        questionLabel.text = quizQuestions[questionNumber].text
     }
 }
 
