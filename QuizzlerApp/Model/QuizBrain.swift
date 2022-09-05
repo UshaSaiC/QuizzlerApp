@@ -24,11 +24,12 @@ struct QuizBrain{
     ]
     
     var questionNumber = 0
+    var score=0
     
-    
-    // answer is external parameter name and userAnswer is internal parameter name. While function call we can use external param name and within the same function/method (as its struct).. we use internal param name
-    func checkAnswer(answer userAnswer: String) -> Bool{
+    // to make the code even simpler while calling below function, external parameter name can be _, so when calling there is no need to pass parameter name
+    mutating func checkAnswer(_ userAnswer: String) -> Bool{
         if userAnswer == quizQuestions[questionNumber].answer{
+            score+=1
             return true
         } else{
             return false
@@ -43,11 +44,16 @@ struct QuizBrain{
         return Float(questionNumber+1)/Float(quizQuestions.count)
     }
     
+    func getScoreValue() -> Int{
+        return score
+    }
+    
     mutating func repeatingQuestions(){
         if questionNumber<quizQuestions.count-1 {
             questionNumber += 1
         }else{
             questionNumber=0
+            score=0
         }
     }
 }
